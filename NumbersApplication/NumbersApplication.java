@@ -68,6 +68,12 @@ public class NumbersApplication{
             if(isCube)
                 System.out.printf("The cube of all the digits in %d is itself%n" , i);
         }
+        //print square nums
+        for(int i = 1000; i < 10000; i++){
+            boolean isSquareNum = squareSum(i);
+            if(isSquareNum)
+                System.out.printf("The square sum of the first 2 and the last 2 digits in %d is  == %d%n", i, i);
+        }
         // print all nums that are abundant or deficent between 1-10000
         for(int i = 1; i<=140; i++){
             int x = abundantOrDeficient(i);
@@ -78,6 +84,19 @@ public class NumbersApplication{
         }
         System.out.printf("There are %d prime numbers in 1 MILLION%n", count);
         System.out.println("Total execution time: " + (endTime - startTime));
+    }
+
+    public static boolean squareSum(int x)
+    {
+        int tmp = x;
+        int beginDigits = tmp %100;
+        tmp = (int)Math.floor(tmp/100);
+        int finalDigits = tmp%100;
+        int total = (int)Math.pow(beginDigits, 2) + (int)2*beginDigits*finalDigits + (int)Math.pow(finalDigits, 2);
+        if(total == x)
+           return true;
+        else
+           return false;
     }
 
     public static boolean cubeDigit(int x)
