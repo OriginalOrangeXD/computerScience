@@ -50,14 +50,29 @@ public class NumbersApplication{
         ArrayList<Integer> perfectNumbers = perfectNums(10000);
         final long endTime = System.currentTimeMillis();
         //print out all prime pairs
-        for(int i = 0; i < pairOfPrime.size()/2; i++)
+        //create numPairs to count pairs
+        int numPair = 0;
+        for(int i = 0; i < pairOfPrime.size(); i+=2)
         {
-           System.out.printf("Pair %d is %d and %d%n", i, pairOfPrime.get(i), pairOfPrime.get(i+1));
+           numPair++;
+           System.out.printf("Pair %d is %d and %d%n", numPair, pairOfPrime.get(i), pairOfPrime.get(i+1));
         }
         //print all perfect nums
         for(int i = 0; i < perfectNumbers.size();i++)
         {
            System.out.printf("%d is a perfect number%n", perfectNumbers.get(i));
+        }
+        //print cube digits up to 10000(dosent work past 500
+        for(int i = 1; i < 10000; i++){
+            boolean isCube = cubeDigit(i);
+            if(isCube)
+                System.out.printf("The cube of all the digits in %d is itself%n" , i);
+        }
+        //print square nums
+        for(int i = 1000; i < 10000; i++){
+            boolean isSquareNum = squareSum(i);
+            if(isSquareNum)
+                System.out.printf("The square sum of the first 2 and the last 2 digits in %d is  == %d%n", i, i);
         }
         // print all nums that are abundant or deficent between 1-10000
         for(int i = 1; i<=140; i++){
@@ -69,6 +84,35 @@ public class NumbersApplication{
         }
         System.out.printf("There are %d prime numbers in 1 MILLION%n", count);
         System.out.println("Total execution time: " + (endTime - startTime));
+    }
+
+    public static boolean squareSum(int x)
+    {
+        int tmp = x;
+        int beginDigits = tmp %100;
+        tmp = (int)Math.floor(tmp/100);
+        int finalDigits = tmp%100;
+        int total = (int)Math.pow(beginDigits, 2) + (int)2*beginDigits*finalDigits + (int)Math.pow(finalDigits, 2);
+        if(total == x)
+           return true;
+        else
+           return false;
+    }
+
+    public static boolean cubeDigit(int x)
+    {
+        int tmp = x;
+        int total = 0;
+        while(tmp > 0)
+        {
+            int digit = tmp % 10;
+            total += Math.pow(digit, 3);
+            tmp = (int)Math.floor(tmp/10);
+        }
+        if(total == x)
+            return true;
+        else
+            return false;
     }
 
     public static int abundantOrDeficient(int x)
