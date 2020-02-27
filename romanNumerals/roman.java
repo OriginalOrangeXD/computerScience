@@ -16,7 +16,17 @@ public class roman
        int total = 0;
        for(int i = 0; i < romanNumeral.length(); i++)
        {
-          int value1 = values(romanNumeral.charAt(i);
+           int value1 = values(romanNumeral.charAt(i));
+           if(i+1 < romanNumeral.length())
+           {
+              int value2 = values(romanNumeral.charAt(i+1));
+              if(value1 >= value2) total += value1;
+              else if(value1 < value2)
+              {
+                  total+=value2-value1;
+                  i++;
+              }
+           }else total += value1;
        }
        return total;
     }
@@ -26,6 +36,7 @@ public class roman
     }
     public static void main(String[] args)
     {
-        System.out.printf("The int of the roman numberal of X is %d%n", convertToInt("X"));
+        System.out.printf("The int of the roman numberal of X is %d%n", convertToInt("XLIII"));
     }
 }
+
