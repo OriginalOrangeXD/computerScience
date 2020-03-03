@@ -1,6 +1,15 @@
 import java.util.Scanner;
 public class roman
 {
+    public static boolean isValid(int a)
+    {
+        if(a<5000) return true;
+        return false;
+    }
+    public static boolean isValid(String a)
+    {
+        //Special case-- I[XV] || V?{0-3}
+    }
     public static int values(char romanNumeral)
     {
        if(romanNumeral == 'I') return 1;
@@ -31,7 +40,6 @@ public class roman
        }
        return total;
     }
-    public static boolean
     public static String convertToString(int a)
     {
         int[] intValues = {1000,900,500,400,100,90,50,40,10,9,5,4,1};
