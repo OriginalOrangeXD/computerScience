@@ -1,3 +1,4 @@
+import java.util.Scanner;
 public class roman
 {
     public static int values(char romanNumeral)
@@ -30,13 +31,33 @@ public class roman
        }
        return total;
     }
+    public static boolean
     public static String convertToString(int a)
     {
-        return "Hello";
+        int[] intValues = {1000,900,500,400,100,90,50,40,10,9,5,4,1};
+        String romanString = "";
+        String[] romanValues = {"M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"};
+        for(int i = 0; i < romanValues.length; i++)
+        {
+            while(a >= intValues[i])
+            {
+                a -= intValues[i];
+                romanString = romanString + romanValues[i];
+            }
+        }
+        return romanString;
     }
     public static void main(String[] args)
     {
-        System.out.printf("The int of the roman numberal of X is %d%n", convertToInt("XLIII"));
+        String inputRoman;
+        int inputInt;
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter your roman number");
+        inputRoman = input.nextLine();
+        System.out.println("Enter you int");
+        inputInt = input.nextInt();
+        System.out.printf("The int of the roman numberal of %s is %d%n",inputRoman, convertToInt(inputRoman));
+        System.out.printf("The string of the int of %d is %s%n",inputInt, convertToString(inputInt));
     }
 }
 
