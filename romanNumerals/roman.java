@@ -36,7 +36,7 @@ public class roman
     }
     public static void main(String[] args)
     {
-        System.out.printf("The int of the roman numberal of X is %d%n", convertToInt("XLIII"));
+        System.out.printf("The int of the roman numberal of X is %d%n", convertToInt("IVCMXCIX"));
     }
 }
 
