@@ -1,13 +1,54 @@
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-public class roman
+public class Roman
 {
+
+    private String romanNumeral;
+    private int num;
+    Roman(int a)
+    {
+        this.num = a;
+        this.romanNumeral = convertToRoman(a);
+    }
+
+    //PUBLC FUNCTIONS
+    public boolean set(int a)
+    {
+        String roman = convertToRoman(a);
+        if(roman==0) return false;
+        else
+        {
+            this.romanNumeral = roman;
+            return true;
+        }
+    }
+    public boolean set(String a)
+    {
+        String roman = convertToInt(a);
+        if(roman=="") return false;
+        else
+        {
+            this.romanNumeral = roman;
+            return true;
+        }
+    }
+
+    public int toInt()
+    {
+        return this.num;
+    }
+    public String toRoman()
+    {
+        return this.romanNumeral;
+    }
+
+
     /**isValid will take in a int and ensure it can be made into a roman numeral
      * @param a int - the int you would like to check
      * @return boolean - true if the num is less than 5000
     **/
-    public static boolean isValid(int a)
+    private static boolean isValid(int a)
     {
         //check if number is less than 5000 if so  return true
         if(a<5000) return true;
@@ -18,7 +59,7 @@ public class roman
      * @param a string - roman numeral you would like to check
      * @return boolean - true if the roman numeral is valid
     **/
-    public static boolean isValid(String a)
+    private static boolean isValid(String a)
     {
         //Set pattern that will match all roman numbers
         //M{0,4} will allow 0-4 M's
@@ -36,7 +77,7 @@ public class roman
      * @param romanNumeral char - the letter you want to find the value of
      * @return int value of the letter
     **/
-    public static int values(char romanNumeral)
+    private static int values(char romanNumeral)
     {
        //check each letter and match it with a value
        if(romanNumeral == 'I') return 1;
@@ -52,7 +93,7 @@ public class roman
      * @param romanNumeral string
      * @return int- value of roman numeral
     **/
-    public static int convertToInt(String romanNumeral)
+    private static int convertToInt(String romanNumeral)
     {
        //total var will hold the int of the roman numeral
        int total = 0;
@@ -81,7 +122,7 @@ public class roman
      * @param a int - the number you would like to find the roman numeral of
      * @return String - roman numeral of the int
     **/
-    public static String convertToString(int a)
+    private static String convertToRoman(int a)
     {
         String romanString = "";
         if(isValid(a))
@@ -98,21 +139,6 @@ public class roman
             }
         }
         return romanString;
-    }
-    public static void main(String[] args)
-    {
-        int inputInt;
-        String inputRoman;
-        Scanner input = new Scanner(System.in);
-        System.out.println("Enter your roman number");
-        inputRoman = input.nextLine();
-        System.out.println("Enter your int");
-        inputInt = input.nextInt();
-        input.close();
-        if(convertToInt(inputRoman) != 0) System.out.printf("The int of the roman numberal of %s is %d%n",inputRoman, convertToInt(inputRoman));
-        else System.out.printf("The string %s is not a valid roman numeral%n", inputRoman);
-        if(convertToString(inputInt) != "") System.out.printf("The string of the int of %d is %s%n",inputInt, convertToString(inputInt));
-        else System.out.printf("The int %d can not be properly converted to a roman numeral%n",inputInt);
     }
 }
 
