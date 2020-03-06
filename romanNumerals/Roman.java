@@ -16,7 +16,7 @@ public class Roman
     public boolean set(int a)
     {
         String roman = convertToRoman(a);
-        if(roman==0) return false;
+        if(roman=="") return false;
         else
         {
             this.romanNumeral = roman;
@@ -25,13 +25,19 @@ public class Roman
     }
     public boolean set(String a)
     {
-        String roman = convertToInt(a);
-        if(roman=="") return false;
+        int roman = convertToInt(a);
+        if(roman==0) return false;
         else
         {
-            this.romanNumeral = roman;
+            this.num = roman;
             return true;
         }
+    }
+    //MATH
+    public void add(Roman a)
+    {
+       int sum = this.num + a.toInt();
+       this.set(sum);
     }
 
     public int toInt()
