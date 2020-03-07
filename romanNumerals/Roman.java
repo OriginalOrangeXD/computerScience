@@ -19,6 +19,7 @@ public class Roman
         if(roman=="") return false;
         else
         {
+            this.num = a;
             this.romanNumeral = roman;
             return true;
         }
@@ -30,6 +31,7 @@ public class Roman
         else
         {
             this.num = roman;
+            this.romanNumeral = a;
             return true;
         }
     }
@@ -43,6 +45,12 @@ public class Roman
     public int toInt()
     {
         return this.num;
+    }
+    public void sub(Roman a)
+    {
+
+        int sub = this.num - a.toInt();
+        if(sub >= 0) this.set(sub);
     }
     public String toRoman()
     {
