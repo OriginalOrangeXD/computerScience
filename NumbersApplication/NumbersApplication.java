@@ -100,7 +100,6 @@ public class NumbersApplication{
         System.out.printf("The cube of all the digits in a number equalls the number %d time between 1-1000%n",cubeSum);
         System.out.printf("There are %d nums where the square sum of the first 2 digits and the last 2 digits == the starting num%n", squareNumCount);
 
-
         final long endTime = System.currentTimeMillis();
         System.out.println("Total execution time: " + (endTime - startTime));
     }
