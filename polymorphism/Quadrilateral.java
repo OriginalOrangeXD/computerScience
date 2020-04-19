@@ -1,11 +1,11 @@
-public class  extends Shape
+public class Quadrilateral extends Shape
 {
-    private double width, height;
+    protected double width, height;
 
-    public Rectangle()
+    public Quadrilateral()
     {
     }
-    public Rectangle(double width, double height)
+    public Quadrilateral(double width, double height)
     {
         this.width = width;
         this.height = height;
@@ -14,8 +14,10 @@ public class  extends Shape
     }
     public void printInfo()
     {
+	if(this.width > 0){
         System.out.println("The width of this rectangle is = " + this.width);
         System.out.println("The height of this rectangle is = " + this.height);
+	}
         super.printInfo();
     }
 }
