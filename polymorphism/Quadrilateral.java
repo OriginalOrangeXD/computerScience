@@ -15,8 +15,8 @@ public class Quadrilateral extends Shape
     public void printInfo()
     {
 	if(this.width > 0){
-        System.out.println("The width of this rectangle is = " + this.width);
-        System.out.println("The height of this rectangle is = " + this.height);
+        System.out.println("The width of this quadrilateral is = " + this.width);
+        System.out.println("The height of this quadrilateral is = " + this.height);
 	}
         super.printInfo();
     }
