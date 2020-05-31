@@ -1,4 +1,6 @@
 import java.util.*;
+import java.io.*;
+import java.nio.file.*;
 public class TestNode {
     /**
      *   * Parse through the tree given at Node n to see if the character c is
@@ -12,6 +14,12 @@ public class TestNode {
         else if (n.value == c) return true;
         return isInTree (c, n.leftNode) || isInTree(c, n.rightNode);
     }
+    public static Node trieBuilder(Map<Character, Integer> freq)
+    {
+        Node r = new Node(0)
+        for(Map.Entry<Character, Integer> entry: map.entrySet()){
+            Character key = entry.getKey();
+            Integer value = entry.getValue();
 
     public static void makeTree(String s)
     {
@@ -23,20 +31,19 @@ public class TestNode {
                 map.put(s.charAt(i), 1);
             }
         }
-
-
-        for(Map.Entry<Character, Integer> entry : map.entrySet()) {
-            char key = entry.getKey();
-            int  value = entry.getValue();
-
-            System.out.println ("Key: " + key + " Value: " + value);
         }
+
     }
-
-    public static void main(String[] args) {
+    // Thanks Geeks for Geeks
+    public static String readFileAsString(String fileName)throws Exception
+    {
+        String data = "";
+        data = new String(Files.readAllBytes(Paths.get(fileName)));
+        return data;
+    }
+    public static void main(String[] args)throws Exception {
         // extremely manual method of creating a tree
-        String s  = "HELLO MY NAME IS ROBERT";
-
+        String s = readFileAsString("war-and-peace.txt");
         makeTree(s);
         // Does the following work?
 //        System.out.println("C with leftmost of root: " +
