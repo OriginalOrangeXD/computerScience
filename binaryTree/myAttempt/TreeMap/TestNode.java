@@ -17,21 +17,29 @@ public class TestNode {
     }
     public static void trieBuilder(Map<Character, Integer> freq)
     {
-        TreeMap<Node, Integer> map = new TreeMap<Node, Integer>();
+        int x = 1;
+        NodePQ nodes = new NodePQ();
+        nodes.add(new Node('A', 10));
+        nodes.add(new Node('B', 60));
         for(Map.Entry<Character, Integer> entry: freq.entrySet()){
-            map.put(new Node(entry.getKey(), entry.getValue(), null, null), entry.getValue());
+         //   nodes.add(new Node(entry.getKey(), entry.getValue()));
+            System.out.println(x);
+            x++;
         }
-        Integer x = 10;
-        while(x > 1)
+
+        for(Map.Entry<Character, Integer> entry: freq.entrySet()){
+            System.out.println("KEY: " + entry.getKey() + " " + "Value: " + entry.getValue());
+        }
+        //Integer x = 10;
+        /*while(x > 1)
         {
             Entry<Node, Integer> left = map.pollLastEntry();
             Entry<Node, Integer> right = map.pollLastEntry();
            // System.out.println(left.getValue());
-            /*
             Node parent = new Node('*', left.freq+right.freq,left,right);
-            map.add(parent, leftInt+rightInt);*/
+            map.add(parent, leftInt+rightInt);
             x--;
-        }
+        }*/
 
     }
 
@@ -48,6 +56,19 @@ public class TestNode {
         trieBuilder(map);
 
     }
+    private static void lookupTable(String[] lookUp, Node n, String s)
+    {
+        if(!n.isLeaf())
+        {
+            lookupTable(lookUp, n.leftNode, s+'0');
+            lookUpTable(lookUp, n.rightNode, s+'1');
+        }
+        else
+        {
+            lookUp[n.getValue()] = s;
+        }
+    }
+
     // Thanks Geeks for Geeks
     public static String readFileAsString(String fileName)throws Exception
     {
