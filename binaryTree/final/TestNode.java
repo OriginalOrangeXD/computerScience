@@ -4,7 +4,8 @@ import java.util.Map.*;
 import java.io.*;
 import java.nio.file.*;
 
-public class TestNode {
+public class TestNode{
+    public static BinaryStdIn inFile;
     /**
      *   * Parse through the tree given at Node n to see if the character c is
      *          * within it
@@ -66,7 +67,7 @@ public class TestNode {
         }
         else
         {
-            System.out.println(n.getValue()+ " code " + s);
+            //System.out.println(n.getValue()+ " code " + s);
             lookUp[n.getValue()] = s;
         }
         return lookUp;
@@ -77,31 +78,49 @@ public class TestNode {
     {
         if(n.isLeaf())
         {
+            //System.out.println(1+""+n.getValue()+"");
             file.write(true);
-           file.write(n.getValue());
-           System.out.println("LEAF");
+            file.write(n.getValue(), 8);
             return;
         }
         file.write(false);
-        System.out.println("NO LEAF");
 
         writeTrie(n.leftNode, file);
+
         writeTrie(n.rightNode, file);
     }
-    public static Node readTrie(BinaryStdIn file) throws IOException
+    private static Node readTrie() {
+        boolean isLeaf = BinaryStdIn.readBoolean();
+        if (isLeaf) {
+            return new Node(BinaryStdIn.readChar(), -1, null, null);
+        }
+        else {
+            return new Node('\0', -1, readTrie(), readTrie());
+        }
+    }
+    public static void expand(Node trie, BinaryStdIn compress, BinaryStdOut outFile)
     {
-        boolean isleaf = file.readBoolean();
-        if(isleaf)
+        int length = compress.readInt();
+        //System.out.println(length);
+        for(int i = 0; i<length; i++)
         {
-            System.out.println("LEAF");
-            return new Node((char)file.readChar(),-1,null,null);
-        }
-        else
-        {
+            Node x = trie;
+            while (!x.isLeaf()) {
 
-            System.out.println("NO LEAF");
-            return new Node('\0', -1, readTrie(file), readTrie(file));
+                boolean bit = compress.readBoolean();
+                if (bit)
+                {
+                    x = x.rightNode;
+                }
+                else
+                {x = x.leftNode;
+
+                }
+            }
+            outFile.write(x.getValue(), 8);
         }
+        compress.close();
+        outFile.close();
     }
 /*
     public static void writeTrie(Node n, FileWriter file) throws IOException
@@ -125,9 +144,9 @@ public class TestNode {
     public static void compress(String[] lookUps, String s) throws Exception
     {
         try{
-            File path = new File("Compress.bin");
-            OutputStream file = new FileOutputStream(path);
-            BinaryStdOut comp = new BinaryStdOut("Compress.bin");
+            BinaryStdOut comp = new BinaryStdOut("compress.bin");
+         //   System.out.println(s.length());
+            comp.write(s.length());
             for (int i = 0; i < s.length(); i++) {
                 String code = lookUps[s.charAt(i)];
                 for (int x = 0; x < code.length(); x++)
@@ -142,6 +161,7 @@ public class TestNode {
                     }
                 }
             }
+            comp.close();
         }
         catch(FileNotFoundException e)
         {
@@ -154,8 +174,10 @@ public class TestNode {
 
     }
 
+    public static void fullCompress(String File1)
+    {}
+
     public static void main(String[] args)throws Exception {
-        // extremely manual method of creating a tree
         String s = readFileAsString("war-and-peace.txt");
         Map<Character, Integer> map = makeTree(s);
         Node trie = trieBuilder(map);
@@ -165,10 +187,15 @@ public class TestNode {
         BinaryStdOut comp = new BinaryStdOut("CompressTrie.bin");
         writeTrie(trie, comp);
         comp.close();
-System.out.println("TEST");
-        BinaryStdIn in = new BinaryStdIn("CompressTrie.bin");
-        readTrie(in);
-        in.close();
+        BinaryStdIn inFile = new BinaryStdIn("CompressTrie.bin");
+        Node inTrie = readTrie();
+        inFile.close();
+        BinaryStdIn inc = new BinaryStdIn("compress.bin");
+
+
+        BinaryStdOut abs = new BinaryStdOut("OUT.txt");
+
+        expand(inTrie, inc,abs );
 
         // Does the following work?
 //        System.out.println("C with leftmost of root: " +
